@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Tema visual de Marea Alta
+   - Tipografía del sistema (sin descargas externas).
+   - La escala "sky" se reemplaza por un azul océano más profundo: con texto blanco
+     el botón principal pasa de contraste 4,1:1 a 6:1 (cumple WCAG AA).
+   ───────────────────────────────────────────────────────────────────────────── */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-sky-50: #eef7fb;
+  --color-sky-100: #d7edf6;
+  --color-sky-200: #b2dbec;
+  --color-sky-300: #7fc0da;
+  --color-sky-400: #4ba2c3;
+  --color-sky-500: #2585a9;
+  --color-sky-600: #0f6a8e;
+  --color-sky-700: #0b5574;
+  --color-sky-800: #0c465f;
+  --color-sky-900: #0d3a4f;
+  --color-sky-950: #082636;
+
+  --shadow-tarjeta: 0 1px 2px rgb(15 23 42 / 0.04), 0 6px 20px -12px rgb(15 23 42 / 0.18);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  h1 {
+    @apply tracking-tight;
+  }
+  /* Foco visible y consistente al navegar con teclado. */
+  :focus-visible {
+    outline: 2px solid var(--color-sky-600);
+    outline-offset: 2px;
+  }
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* En @layer components para que las utilidades (p-0, w-auto, px-4…) puedan sobrescribirlas. */
+@layer components {
+  /* Campos: 44 px de alto y letra de 16 px (evita el zoom automático de iOS al enfocar). */
+  .campo {
+    @apply min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-base text-slate-900 outline-none transition placeholder:text-slate-400 hover:border-slate-400 focus:border-sky-600 focus:ring-4 focus:ring-sky-100 disabled:bg-slate-100;
+  }
+
+  /* Botones: área táctil mínima de 44 px. */
+  .btn-primario {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-sky-600 px-5 py-2.5 text-[15px] font-semibold text-white shadow-sm shadow-sky-900/10 transition hover:bg-sky-700 active:bg-sky-800 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none;
+  }
+
+  .btn-secundario {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-[15px] font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 active:bg-slate-100;
+  }
+
+  /* Tarjetas: menos relleno en móvil, sombra suave. */
+  .tarjeta {
+    @apply rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[var(--shadow-tarjeta)] sm:p-6;
+  }
+}
